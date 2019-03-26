@@ -1,0 +1,20 @@
+{
+    "name": "neonexxa/billplz-wrapper",
+    "description": "php billplz wrapper",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "neonexxa",
+            "email": "firdaus@cyberhax.club"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "php": ">=5.3.0"
+    },
+    "autoload": {
+        "psr-0": {
+            "Neonexxa\\BillplzWrapper": "src/"
+        }
+    }
+}
