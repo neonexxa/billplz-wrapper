@@ -1,4 +1,5 @@
-<?php namespace Neonexxa\BillplzWrapperV3;
+<?php 
+namespace Neonexxa\BillplzWrapperV3;
 use Illuminate\Support\ServiceProvider;
 use Neonexxa\BillplzWrapperV3\Billplz;
 class BillplzServiceProvider extends ServiceProvider {
@@ -7,7 +8,7 @@ class BillplzServiceProvider extends ServiceProvider {
 	 *
 	 * @var bool
 	 */
-	protected $defer = false;
+	// protected $defer = false;
 	/**
 	 * Bootstrap the application events.
 	 *
@@ -16,6 +17,9 @@ class BillplzServiceProvider extends ServiceProvider {
 	public function boot()
 	{
 		//
+		$this->publishes([
+					__DIR__.'/../../../config/billplz.php' => config_path('billplz.php'),
+				],'config');
 	}
 	/**
 	 * Register the service provider.
@@ -24,42 +28,35 @@ class BillplzServiceProvider extends ServiceProvider {
 	 */
 	public function register()
 	{
-		$app = $this->app ?: app();
-		$appVersion = method_exists($app, 'version') ? $app->version() : $app::VERSION;
-		$laravelVersion = substr($appVersion, 0, strpos($appVersion, '.'));
-		$isLumen = false;
-		// if (strpos(strtolower($laravelVersion), 'lumen') !== false)
-		// {
-		// 	$isLumen = true;
-		// 	$laravelVersion = str_replace('Lumen (', '', $laravelVersion);
-		// }
-		// if ($laravelVersion == 5)
-		// {
-			$this->mergeConfigFrom(__DIR__.'/../../config/config.php', 'billplz');
-			// if ($isLumen)
-			// {
-			// 	$this->publishes([
-			// 		__DIR__ . '/../config/config.php' => base_path('config/ttwitter.php'),
-			// 	]);
-			// }
-			// else
-			// {
-				$this->publishes([
-					__DIR__.'/../../config/config.php' => config_path('billplz.php'),
-				]);
-			// }
-		// }
-		$this->app->singleton(Billplz::class, function () use ($app) {
-			return new Billplz($app['config'], $app['session.store']);
-		});
+
+		// $app = $this->app ?: app();
+		// $appVersion = method_exists($app, 'version') ? $app->version() : $app::VERSION;
+		// $laravelVersion = substr($appVersion, 0, strpos($appVersion, '.'));
+		// $isLumen = false;
+		// // if (strpos(strtolower($laravelVersion), 'lumen') !== false)
+		// // {
+		// // 	$isLumen = true;
+		// // 	$laravelVersion = str_replace('Lumen (', '', $laravelVersion);
+		// // }
+		// // if ($laravelVersion == 5)
+		// // {
+		// 	$this->mergeConfigFrom(__DIR__.'/../../config/billplz.php', 'billplz');
+		// 	// if ($isLumen)
+		// 	// {
+		// 	// 	$this->publishes([
+		// 	// 		__DIR__ . '/../config/config.php' => base_path('config/ttwitter.php'),
+		// 	// 	]);
+		// 	// }
+		// 	// else
+		// 	// {
+		// 		// $this->publishes([
+		// 		// 	__DIR__.'/../../config/billplz.php' => config_path('billplz.php'),
+		// 		// ],'config');
+		// 	// }
+		// // }
+		// $this->app->bind(Billplz::class, function () use ($app) {
+		// 	return new Billplz($app['config']);
+		// });
 	}
-	/**
-	 * Get the services provided by the provider.
-	 *
-	 * @return array
-	 */
-	public function provides()
-	{
-		return ['billplz'];
-	}
+	
 }

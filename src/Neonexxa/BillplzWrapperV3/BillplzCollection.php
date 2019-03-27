@@ -3,10 +3,10 @@ namespace Neonexxa\BillplzWrapperV3;
 class BillplzCollection extends Billplz {
 
   public $title;
+  public $split_payment;
+  public $collection_id;
   public function __construct(){
     parent::__construct();
-    echo "i run here\n";
-    echo $this->host."\n";
   }
   function set_param($data, $data2 = null) {
    if (is_array($data)) {
@@ -17,46 +17,25 @@ class BillplzCollection extends Billplz {
      $this->data[$data] = $data2;
    }
   }
-  // static $get; // your top variable set as static
 
-  // public static function get() {
-  //     return self::$get;
-  // }
-  function create_collection($params = null){
-      echo" then i run here\n";
-      if (is_array($params)) {
-        $this->set_param($params);
-      }
-      // required parameter
+  function create_collection(){
       if (!empty($this->title)) {
+        // required parameter
         $this->data['title'] = $this->title;
+        // optional parameter
+        if (isset($this->split_payment['email'])) $this->data['split_payment[email]'] = $this->split_payment['email'];
+        if (isset($this->split_payment['fixed_cut'])) $this->data['split_payment[fixed_cut]'] = $this->split_payment['fixed_cut'];
+        if (isset($this->split_payment['split_header'])) $this->data['split_payment[split_header]'] = $this->split_payment['split_header'];
       }else{
         $this->error = "Title is a required parameter";
-        return false;
+        return $this->error;
       }
-      // // optional parameter
-      // if (isset($this->data['logo'])) {
-      //   if (file_exists($this->data['logo'])) {
-      //     $this->data['logo'] = '@'. $this->data['logo'];
-      //   } else {
-      //     $this->error = "logo file not found";
-      //     return false;
-      //   }
-      // }
-      
       return $this->callAPI("POST","collections",$this->data);
   }
 
-  public function get($params=null)
+  function get_collection()
   {
-    // if (is_array($params)) {
-    //   $this->set_param($params);
-    // }
-    echo $this->host." host\n";
-    if (isset($params['collection_id'])) {
-      // return collection details
-    }else{
-      // return collection index
-    }
+    if (isset($this->collection_id)) $this->data['collection_id'] = $this->collection_id;
+    return $this->callAPI("GET","collections",$this->data);
   }
 }

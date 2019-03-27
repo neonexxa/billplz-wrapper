@@ -14,32 +14,56 @@ Just download any of the release or clone this repository. Feel free to use the 
 
 ## How to use (Create)
 
-### Create COllection
+### Create Collection
 
 Be sure that you save the result. Result you get the is the amount after convertion.
 
 ```php
-use Neonexxa\BillplzWrapper\Billplz;
+use Neonexxa\BillplzWrapperV3\BillplzCollection;
 
-$billplz = new Billplz([
-    'api_key' => 'your_api_key',
-    'currency' => 'USD_MYR' //example for converting USD to MYR
-]);
-$respond = $billplz->create_bill("1460");
+$res = new BillplzCollection;
+$res->title = "im setting";
+$res->split_payment['email'] = 'antoher_billplz_email';
+$res->split_payment['fixed_cut'] = 50;
+$res->split_payment['split_header'] = true;
+$respond = $res->create_collection();
+
 
 ```
-### Create Bill
+
+### Get Collection
 
 Be sure that you save the result. Result you get the is the amount after convertion.
 
 ```php
-use Neonexxa\BillplzWrapper\Billplz;
+use Neonexxa\BillplzWrapperV3\BillplzCollection;
 
-$billplz = new Billplz([
-    'api_key' => 'your_api_key',
-    'currency' => 'USD_MYR' //example for converting USD to MYR
-]);
-$respond = $billplz->create_bill("1460");
+$res = new BillplzCollection;
+$res->collection_id = "XXXXXX";
+$res = $res->get_collection();
+
+```
+
+### Get Collection Index
+
+```php
+use Neonexxa\BillplzWrapperV3\BillplzCollection;
+
+$res = new BillplzCollection;
+$res = $res->get_collection();
+
+```
+
+### Get Bill
+
+Be sure that you save the result. Result you get the is the amount after convertion.
+
+```php
+use Neonexxa\BillplzWrapperV3\BillplzBill;
+
+$res = new BillplzBill;
+$res->bill_id = "xxxxxxx";
+$res = $res->get_bill();
 
 ```
 
