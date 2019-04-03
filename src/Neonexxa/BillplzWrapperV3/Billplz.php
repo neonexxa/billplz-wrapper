@@ -1,7 +1,8 @@
 <?php 
 namespace Neonexxa\BillplzWrapperV3;
 use Carbon\Carbon as Carbon;
-
+use Illuminate\Session\Store as SessionStore;
+use Illuminate\Config\Repository as Config;
 class Billplz {
 
   private $billplzconfig;
@@ -23,19 +24,23 @@ class Billplz {
           case 'collections':
             # code...
             $url = $this->billplzconfig['BILLPLZ_API_URL'] . $this->sep . $this->billplzconfig['BILLPLZ_API_VERSION']. $this->sep ."collections";
-            if ($method == "GET") {
-              if (!empty($data['collection_id'])) {
-                $url = $url.$this->sep.$data['collection_id'];
+            
+            if (!empty($data['collection_id'])) {
+              $url = $url.$this->sep.$data['collection_id'];
+            }
+            if (isset($this->data['activate'])) {
+              if ($data['activate']) {
+                $url = $url.$this->sep.'activate';
+              }else{
+                $url = $url.$this->sep.'deactivate';
               }
             }
             break;
           case 'bills':
             # code...
             $url = $this->billplzconfig['BILLPLZ_API_URL'] . $this->sep . $this->billplzconfig['BILLPLZ_API_VERSION']. $this->sep ."bills";
-            if ($method == "GET") {
-              if (!empty($data['bill_id'])) {
-                $url = $url.$this->sep.$data['bill_id'];
-              }
+            if (!empty($data['bill_id'])) {
+              $url = $url.$this->sep.$data['bill_id'];
             }
             break;
           
@@ -53,6 +58,11 @@ class Billplz {
              break;
           case "PUT":
              curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "PUT");
+             if ($data)
+                curl_setopt($curl, CURLOPT_POSTFIELDS, $data);                              
+             break;
+          case "DELETE":
+             curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "DELETE");
              if ($data)
                 curl_setopt($curl, CURLOPT_POSTFIELDS, $data);                              
              break;

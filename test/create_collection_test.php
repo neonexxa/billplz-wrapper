@@ -43,3 +43,42 @@ echo " Collection Function Testing\n";
 //     }
 // }
 // $res = BillplzCollection::get(["collection_id"=>"col_id"]);
+switch ($for) {
+            case 'bill':
+                # code...
+                $res = new BillplzBill;
+                $res->bill_id = "mvglxgkr";
+                $res = $res->get_bill();
+                echo $res;
+                echo "\n Get_bill Done";
+                break;
+            case 'collection':
+                # code...
+                $res3 = new BillplzCollection;
+                $res3->title = "Test wrapper";
+                $res3 = $res3->create_collection();
+                echo $res3."\n Create_collection Done";
+                list($rheader, $rbody, $rurl) = explode("\n\r\n", $res3);
+                $bplz_result = json_decode($rurl);
+                $res = new BillplzCollection;
+                $res->collection_id = $bplz_result->id;
+                $res = $res->get_collection();
+                echo $res."\n Get_collection Done";
+                $res2 = new BillplzCollection;
+                $res2 = $res2->get_collection();
+                echo $res2."\n Get_collection_index Done";
+                $res4 = new BillplzCollection;
+                $res4->collection_id = $bplz_result->id;
+                $res4->activate = false ;
+                $res4 = $res4->activate_collection();
+                echo $res4."\n deactivate_collection Done";
+                $res5 = new BillplzCollection;
+                $res5->collection_id = $bplz_result->id;
+                $res5 = $res5->activate_collection();
+                echo $res5."\n activate_collection Done";
+                break;
+            
+            default:
+                # code...
+                break;
+        }

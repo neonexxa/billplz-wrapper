@@ -51,5 +51,16 @@ class BillplzBill extends Billplz {
       }
     return $this->callAPI("GET","bills",$this->data);
   }
+  function delete_bill()
+  {
+    if (!empty($this->bill_id)) {
+        // required parameter
+        $this->data['bill_id'] = $this->bill_id;
+      }else{
+        $this->error = "Required parameter is empty";
+        return $this->error;
+      }
+    return $this->callAPI("DELETE","bills",$this->data);
+  }
 }
 
