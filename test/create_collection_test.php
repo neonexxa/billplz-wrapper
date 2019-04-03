@@ -46,12 +46,25 @@ echo " Collection Function Testing\n";
 switch ($for) {
             case 'bill':
                 # code...
+                $res0 = new BillplzBill;
+                $res0->collection_id = "nxnpxcln"; // which collection you want to park this bill under
+                $res0->description = "lol"; // bill description
+                $res0->email = "firdaus.hishamuddin@invigour-energy.com"; // client email
+                $res0->name = "Neonexxa"; // cleint name
+                $res0->amount = 2*100; // by default in cent
+                $res0->callback_url = "google.com"; // callback url after execution
+                $res0 = $res0->create_bill();
+                list($rhead ,$rbody, $rurl) = explode("\n\r\n", $res0);
+                $bplz_result = json_decode($rurl);
+                echo $res0."\n create_bill Done";
                 $res = new BillplzBill;
-                $res->bill_id = "mvglxgkr";
+                $res->bill_id = $bplz_result->id;
                 $res = $res->get_bill();
-                echo $res;
-                echo "\n Get_bill Done";
-                break;
+                echo $res."\n Get_bill Done";
+                $res2 = new BillplzBill;
+                $res2->bill_id = $bplz_result->id;
+                $res2 = $res2->delete_bill();
+                echo $res2."\n delete_bill Done";
             case 'collection':
                 # code...
                 $res3 = new BillplzCollection;
@@ -77,7 +90,24 @@ switch ($for) {
                 $res5 = $res5->activate_collection();
                 echo $res5."\n activate_collection Done";
                 break;
-            
+            case 'opencollection':
+            	$res = new BillplzOpenCollection;
+                $res->title = "test wrapper open";
+                $res->description = "test wrapper open desc";
+                $res->fixed_amount = false;
+                // $res->amount = 2*100;
+                $res = $res->create_opencollection();
+                echo $res."\n create_opencollection Done";
+                list($rheader, $rbody, $rurl) = explode("\n\r\n", $res);
+                $bplz_result = json_decode($rurl);
+                $res2 = new BillplzOpenCollection;
+                $res2->collection_id = $bplz_result->id;
+                $res2 = $res2->get_opencollection();
+                echo $res2."\n Get_opencollection Done";
+                $res3 = new BillplzOpenCollection;
+                $res3 = $res3->get_opencollection();
+                echo $res3."\n Get_opencollection index Done";
+            	break;
             default:
                 # code...
                 break;

@@ -36,6 +36,14 @@ class Billplz {
               }
             }
             break;
+          case 'open_collections':
+            # code...
+            $url = $this->billplzconfig['BILLPLZ_API_URL'] . $this->sep . $this->billplzconfig['BILLPLZ_API_VERSION']. $this->sep ."open_collections";
+            
+            if (!empty($data['collection_id'])) {
+              $url = $url.$this->sep.$data['collection_id'];
+            }
+            break;
           case 'bills':
             # code...
             $url = $this->billplzconfig['BILLPLZ_API_URL'] . $this->sep . $this->billplzconfig['BILLPLZ_API_VERSION']. $this->sep ."bills";
@@ -70,7 +78,6 @@ class Billplz {
              if ($data)
                 $url = sprintf("%s?%s", $url, http_build_query($data));
        }
-
        // OPTIONS:
        curl_setopt($curl, CURLOPT_URL, $url);
        curl_setopt($curl, CURLOPT_HEADER, 1);
