@@ -1,8 +1,7 @@
 <?php 
 namespace Neonexxa\BillplzWrapperV3;
 use Carbon\Carbon as Carbon;
-use Illuminate\Session\Store as SessionStore;
-use Illuminate\Config\Repository as Config;
+
 class Billplz {
 
   private $billplzconfig;

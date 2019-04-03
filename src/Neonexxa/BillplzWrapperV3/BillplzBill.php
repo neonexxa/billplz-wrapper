@@ -26,11 +26,11 @@ class BillplzBill extends Billplz {
       if (!empty($this->collection_id)AND !empty($this->description)AND !empty($this->email)AND !empty($this->name)AND !empty($this->amount)AND !empty($this->callback_url) ) {
         // required parameter
         $this->data['collection_id'] = $this->collection_id;
-  		$this->data['description']= $this->description;
-  		$this->data['email']=$this->email;
-  		$this->data['name']=$this->name;
-  		$this->data['amount']=$this->amount;
-  		$this->data['callback_url']=$this->callback_url;
+    		$this->data['description']= $this->description;
+    		$this->data['email']=$this->email;
+    		$this->data['name']=$this->name;
+    		$this->data['amount']=$this->amount;
+    		$this->data['callback_url']=$this->callback_url;
         // optional parameter
         // next version
       }else{
