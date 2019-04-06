@@ -14,18 +14,25 @@ Just download any of the release or clone this repository. Feel free to use the 
 
 ### For Laravel 
 
-1 ) run 
+1 ) in your config/app.php add below to your service provider class
 
 ```php
-php artisan vendor:publish --provider="Neonexxa\BillplzWrapperV3\BillplzServiceProvider"
+Neonexxa\BillplzWrapperV3\BillplzServiceProvider::class,
 ```
-in order to get the config setting ready for you.
 
-2) put your key in the *.env* file
+2 ) put your key in the *.env* file
 
 ```
 BILLPLZ_API_KEY=xxxxx-xxxx-xxxx-xxxx-xxxx
 ```
+
+3 ) run 
+
+```php
+composer dump-autoload && php artisan config:cache && php artisan cache:clear
+php artisan vendor:publish --provider="Neonexxa\BillplzWrapperV3\BillplzServiceProvider"
+```
+in order to get the config setting ready for you.
 
 ## How to use (Create)
 
