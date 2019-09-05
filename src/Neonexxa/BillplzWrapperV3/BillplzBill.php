@@ -38,7 +38,7 @@ class BillplzBill extends Billplz {
       }
       // optional parameter
       if(!empty($this->redirect_url)){
-        $this->data['redicrect_url'] = $this->redirect_url;
+        $this->data['redirect_url'] = $this->redirect_url;
       }
       return $this->callAPI("POST","bills",$this->data);
   }
