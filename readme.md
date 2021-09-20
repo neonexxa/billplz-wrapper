@@ -2,7 +2,7 @@
 wrapper v3.0 will be updated next month with the mastercard/visa
 ```
 
-# PHP Currency Converter
+# PHP Payment Gateway
 
 This is a php library for working with [Billplz v3](https://www.billplz.com/api). Be sure that you signup and get your api token from there. Im creating this because most of the api i used all are compatible with v2 im afraid it doesnt work with v3. im just worried, so i built one package for my own use on my other project. 
 
